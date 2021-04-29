@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 // routes
 const book = require('./routes/book');
+const config = require('./key/config');
 
 // cors
 app.use(cors());
@@ -14,15 +15,12 @@ app.use(express.json());
 
 // connection
 mongoose
-  .connect(
-    'mongodb+srv://bek:123@cluster0.csb9b.mongodb.net/mercato?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
-    }
-  )
+  .connect(config, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
   .then(() => console.log('Mongo connect sucessfully'))
   .catch(err => console.log(err));
 
